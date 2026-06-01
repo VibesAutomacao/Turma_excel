@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Excel Avançado • Vídeo Aulas</title>
+  <meta name="description" content="Vídeo aulas de Excel avançado com progresso por vídeo." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --text:#eaf0ff;
+      --muted: rgba(234,240,255,.74);
+      --line: rgba(255,255,255,.12);
+      --brand:#7c5cff;
+      --accent:#38bdf8;
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 14px;
+      --focus: 0 0 0 4px rgba(124,92,255,.22);
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(124,92,255,.35), transparent 55%),
+        radial-gradient(900px 500px at 88% 20%, rgba(56,189,248,.25), transparent 50%),
+        radial-gradient(900px 500px at 70% 90%, rgba(56,189,248,.18), transparent 50%),
+        linear-gradient(180deg, #070b14, var(--bg));
+    }
+
+    a{color:inherit; text-decoration:none}
+    button{font-family:inherit}
+
+    .container{max-width:1100px; margin:0 auto; padding:0 20px}
+
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(11,18,32,.55);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .topbar-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0; gap:14px}
+    .brand{display:flex; align-items:center; gap:12px; font-weight:900; letter-spacing:.2px}
+    .brand-badge{
+      width:40px; height:40px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(56,189,248,.85));
+      box-shadow: 0 10px 30px rgba(124,92,255,.24);
+      position:relative; overflow:hidden;
+    }
+    .brand-badge:before{
+      content:""; position:absolute; inset:-40px;
+      background: conic-gradient(from 180deg, rgba(255,255,255,.0), rgba(255,255,255,.35), rgba(255,255,255,.0));
+      animation: spin 5s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .brand-badge:after{
+      content:""; position:absolute; inset:1px;
+      background: rgba(11,18,32,.35);
+      border-radius:13px;
+    }
+    .brand small{display:block; font-size:12px; color:var(--muted); font-weight:700; letter-spacing:.2px}
+
+    .nav{display:flex; gap:12px; align-items:center}
+    .pillbar{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+
+    .card{
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero{padding:28px 0 18px}
+    .hero-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:14px; align-items:start}
+
+    .hero-card{padding:18px}
+    .eyebrow{color:var(--muted); font-weight:800; letter-spacing:.6px; font-size:12px; text-transform:uppercase}
+    .title{margin:10px 0 6px; font-size:30px; line-height:1.1}
+    .subtitle{margin:0; color:var(--muted); line-height:1.6}
+
+    .btn{
+      padding:10px 14px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.05);
+      color:var(--text);
+      font-weight:900;
+      cursor:pointer;
+      transition:.18s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.22)}
+    .btn.primary{
+      border-color: rgba(124,92,255,.45);
+      background: linear-gradient(180deg, rgba(124,92,255,.35), rgba(124,92,255,.18));
+    }
+    .btn.secondary{border-color: rgba(255,255,255,.18)}
+    .btn:disabled{opacity:.55; cursor:not-allowed; transform:none}
+
+    .progress-row{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px}
+    .progress-box{
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding:12px;
+      min-width: 190px;
+    }
+    .progress-box b{font-size:20px}
+    .progress-box small{display:block; color:var(--muted); font-weight:700; margin-top:2px}
+
+    .main-grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:14px; align-items:start; padding:0 0 30px}
+
+    .player-wrap{padding:14px}
+    .player-header{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:10px}
+    .player-header h2{margin:0; font-size:16px; letter-spacing:-.2px}
+    iframe{width:100%; aspect-ratio: 16/9; border:0; border-radius: 14px; background: rgba(0,0,0,.25)}
+
+    .right{padding:14px}
+    .list-head{display:flex; justify-content:space-between; gap:12px; align-items:center; flex-wrap:wrap; margin-bottom:10px}
+    .list-head h3{margin:0; font-size:16px}
+
+    .video-list{display:grid; gap:10px}
+
+    .video-item{
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      padding:12px;
+      transition:.18s ease;
+      position:relative;
+    }
+    .video-item.selected{border-color: rgba(124,92,255,.55); box-shadow: 0 0 0 4px rgba(124,92,255,.12)}
+
+    .pill{display:inline-flex; padding:6px 10px; border-radius:999px; font-weight:900; font-size:12px; border:1px solid rgba(255,255,255,.12); margin-bottom:8px}
+    .pill.todo{color: var(--muted)}
+    .pill.done{color:#bbf7d0; border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.12)}
+
+    .video-title{font-weight:950; margin-bottom:10px}
+    .video-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+
+    .footer-note{color:var(--muted); font-weight:700; font-size:12.5px; margin-top:12px; line-height:1.5}
+
+    @media (max-width: 920px){
+      .hero-grid{grid-template-columns:1fr}
+      .main-grid{grid-template-columns:1fr}
+    }
+    @media (prefers-reduced-motion: reduce){
+      *{scroll-behavior:auto !important}
+      .brand-badge:before{animation:none}
+      .btn,.video-item{transition:none}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" aria-label="Curso Excel Avançado">
+        <div class="brand-badge" aria-hidden="true"></div>
+        <div>
+          Excel Avançado
+          <small>Vídeo aulas • progresso por vídeo</small>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a class="btn secondary" href="../portfolio/index.html">Voltar</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" aria-label="Resumo do curso">
+      <div class="hero-grid">
+        <div class="card hero-card">
+          <div class="eyebrow">CURSO</div>
+          <h1 class="title">Vídeo aulas de Excel avançado</h1>
+          <p class="subtitle">Assista no player e clique em <b>Completo</b> ao terminar cada vídeo. O progresso fica salvo neste navegador.</p>
+
+          <div class="progress-row">
+            <div class="progress-box">
+              <b id="progressText">0/21</b>
+              <small>Vídeos concluídos</small>
+            </div>
+            <button id="resetProgress" class="btn secondary" type="button" title="Apaga o progresso salvo">Resetar progresso</button>
+          </div>
+
+          <div class="footer-note">
+            Dica: você pode manter esta aba aberta e usar o botão <b>Assistir</b> para alternar entre os vídeos.
+          </div>
+        </div>
+
+        <div class="card hero-card">
+          <div class="eyebrow">FUNCIONA ASSIM</div>
+          <h2 style="margin:10px 0 6px; font-size:18px">Fluxo do aluno</h2>
+          <ol style="margin:0; padding-left:18px; color:var(--muted); font-weight:750; line-height:1.8">
+            <li>Na lista, clique em <b>Assistir</b> para abrir o vídeo no player</li>
+            <li>Quando terminar, clique em <b>Completo</b> no mesmo vídeo</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero" aria-label="Provas">
+      <div class="hero-grid" style="grid-template-columns: 1fr 1fr; gap:14px; align-items:start">
+        <div class="card hero-card">
+          <div class="eyebrow">PROVAS</div>
+          <h2 style="margin:10px 0 6px; font-size:22px; letter-spacing:-.3px">Liberar após as 21 aulas</h2>
+          <p class="subtitle" style="margin-top:0">
+            Faça a prova de nível <b id="provaLevelLabel">Fácil</b> com 10 questões (A até D).
+          </p>
+
+          <div class="progress-row" style="margin-top:12px">
+            <div class="progress-box">
+              <b id="provasStatusText">—</b>
+              <small id="provasStatusSub">Aguardando conclusão do curso</small>
+            </div>
+            <button id="openProvaBtn" class="btn primary" type="button" disabled style="width:100%; max-width:320px">Iniciar prova</button>
+          </div>
+
+          <div class="footer-note" style="margin-top:12px">
+            Regras: <b>7/10</b> para passar no Fácil, <b>8/10</b> no Médio e <b>10/10</b> no Difícil.
+            Se errar e ficar abaixo da pontuação, as provas ficam <b>bloqueadas por 1 dia</b>.
+          </div>
+        </div>
+
+        <div class="card hero-card">
+          <div class="eyebrow">COMO FUNCIONA</div>
+          <ol style="margin:10px 0 0; padding-left:18px; color:var(--muted); font-weight:750; line-height:1.8">
+            <li>Conclua as <b>21 aulas</b></li>
+            <li>Clique em <b>Iniciar prova</b></li>
+            <li>Selecione A/B/C/D e clique em <b>Enviar</b></li>
+          </ol>
+          <div class="footer-note">
+            Se passar: libera o próximo nível automaticamente.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-grid" aria-label="Player e lista de vídeos">
+      <div class="card player-wrap">
+        <div class="player-header">
+          <h2>Player</h2>
+          <div class="pillbar">
+            <span style="color:var(--muted); font-weight:800; font-size:13px">Playlist com 21 vídeos</span>
+          </div>
+        </div>
+        <iframe id="playerFrame" loading="lazy" allowfullscreen referrerpolicy="origin-when-cross-origin" 
+          src="about:blank"></iframe>
+      </div>
+
+      <aside class="card right" aria-label="Lista de vídeos">
+        <div class="list-head">
+          <h3>Vídeos</h3>
+          <span style="color:var(--muted); font-weight:800; font-size:13px">Clique em Completo por vídeo</span>
+        </div>
+
+        <div id="videosList" class="video-list"></div>
+      </aside>
+    </section>
+  </main>
+
+  <!-- Modal/Box da Prova -->
+  <div id="provaOverlay" style="position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; padding:18px; z-index:1000;">
+    <div class="card" style="width:min(900px, 100%); padding:16px; max-height:min(85vh, 900px); overflow:hidden;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px">
+
+        <div>
+          <div class="eyebrow" style="margin-bottom:6px">PROVA • <span id="provaLevelTitle">Fácil</span></div>
+          <h3 style="margin:0 0 2px; font-size:18px">Questões</h3>
+          <div style="color:var(--muted); font-weight:750; font-size:13px" id="provaMeta">—</div>
+        </div>
+        <button id="closeProvaBtn" class="btn secondary" type="button">Fechar</button>
+      </div>
+
+      <div id="provaQuestions" style="display:grid; gap:12px; overflow-y:auto; padding-right:6px; max-height:60vh"></div>
+
+      <div style="display:flex; gap:10px; justify-content:flex-end; align-items:center; flex-wrap:wrap; margin-top:14px">
+
+        <div style="color:var(--muted); font-weight:800; font-size:13px" id="provaCounter">0/10 respondidas</div>
+        <button id="submitProvaBtn" class="btn primary" type="button">Enviar prova</button>
+      </div>
+
+      <div id="provaResult" style="margin-top:14px; display:none"></div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
+
+
+
